@@ -8,30 +8,27 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
         git \
         curl \
         unzip \
-        php7 \
-        php7-xml \
-        php7-zip \
-        php7-xmlreader \
-        php7-zlib \
-        php7-opcache \
-        php7-mcrypt \
-        php7-openssl \
-        php7-curl \
-        php7-json \
-        php7-dom \
-        php7-phar \
-        php7-mbstring \
-        php7-bcmath \
-        php7-pdo \
-        php7-pdo_pgsql \
-        php7-pdo_sqlite \
-        php7-pdo_mysql \
-        php7-soap \
-        php7-xdebug \
-        php7-pcntl \
-        php7-ctype \
-        php7-session \
-    && ln -s /usr/bin/php7 /usr/bin/php \
+        php5 \
+        php5-xml \
+        php5-zip \
+        php5-xmlreader \
+        php5-zlib \
+        php5-opcache \
+        php5-mcrypt \
+        php5-openssl \
+        php5-curl \
+        php5-json \
+        php5-dom \
+        php5-phar \
+        php5-bcmath \
+        php5-pdo \
+        php5-pdo_pgsql \
+        php5-pdo_sqlite \
+        php5-pdo_mysql \
+        php5-soap \
+        php5-xdebug \
+        php5-pcntl \
+        php5-ctype \
     && php -r "copy('https://pear.php.net/go-pear.phar', 'go-pear.phar');" \
     && php go-pear.phar \
     && php -r "unlink('go-pear.phar');" \
@@ -41,10 +38,9 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
     && composer require "phpunit/phpunit:~5.7.5" --prefer-source --no-interaction \
     && composer require "phpunit/php-invoker" --prefer-source --no-interaction \
     && ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit \
-    && sed -i 's/nn and/nn, Julien Breux (Docker) and/g' /tmp/vendor/phpunit/phpunit/src/Runner/Version.php \
 
     # Enable X-Debug
-    && sed -i 's/\;z/z/g' /etc/php7/conf.d/xdebug.ini \
+    && sed -i 's/\;z/z/g' /etc/php5/conf.d/xdebug.ini \
     && php -m | grep -i xdebug
 
 VOLUME ["/app"]
