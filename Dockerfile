@@ -43,6 +43,18 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
     && sed -i 's/\;z/z/g' /etc/php5/conf.d/xdebug.ini \
     && php -m | grep -i xdebug
 
+# install python3
+RUN apk add --update --no-cache python3
+
+# set default python version
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# install aws cli
+ADD https://s3.amazonaws.com/aws-cli/awscli-bundle.zip /tmp/awscli-bundle.zip
+RUN unzip /tmp/awscli-bundle.zip -d /tmp/ && \
+/tmp/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws && \
+rm -rf /tmp/awscli-bundle.zip /tmp/awscli-bundle
+
 VOLUME ["/app"]
 WORKDIR /app
 
