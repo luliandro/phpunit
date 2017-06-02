@@ -2,13 +2,13 @@ FROM alpine:edge
 
 WORKDIR /tmp
 
-RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing add \
+RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.5/community add \
         bash \
         ca-certificates \
         git \
         curl \
         unzip \
-        php5 \
+        php5-cli \
         php5-xml \
         php5-zip \
         php5-xmlreader \
@@ -32,6 +32,7 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testin
         jq \
         php5-imap \
 
+    && ln -s /usr/bin/php5 /usr/bin/php \
     && php -r "copy('https://pear.php.net/go-pear.phar', 'go-pear.phar');" \
     && php go-pear.phar \
     && php -r "unlink('go-pear.phar');" \
