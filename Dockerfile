@@ -26,7 +26,6 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.5/commun
         php5-pdo_sqlite \
         php5-pdo_mysql \
         php5-soap \
-        php5-xdebug \
         php5-pcntl \
         php5-ctype \
         jq \
@@ -41,11 +40,7 @@ RUN apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.5/commun
     && php -r "unlink('composer-setup.php');" \
     && composer require "phpunit/phpunit:~5.7.5" --prefer-source --no-interaction \
     && composer require "phpunit/php-invoker" --prefer-source --no-interaction \
-    && ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit \
-
-    # Enable X-Debug
-    && sed -i 's/\;z/z/g' /etc/php5/conf.d/xdebug.ini \
-    && php -m | grep -i xdebug
+    && ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit
 
 # install python3
 RUN apk add --update --no-cache python3
